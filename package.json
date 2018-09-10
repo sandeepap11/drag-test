@@ -1,0 +1,27 @@
+{
+  "name": "testninja",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@atlaskit/css-reset": "^3.0.1",
+    "bootstrap": "3",
+    "flow-bin": "^0.73.0",
+    "react": "^16.4.1",
+    "react-beautiful-dnd": "^9.0.2",
+    "react-bootstrap": "^0.32.1",
+    "react-dom": "^16.4.1",
+    "react-drag-sortable": "^1.0.6",
+    "react-html5-video-editor": "^1.2.0",
+    "react-scripts": "1.1.4",
+    "react-sortable-hoc": "^0.8.3",
+    "redux": "^4.0.0",
+    "styled-components": "^3.4.5",
+    "video-react": "^0.11.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

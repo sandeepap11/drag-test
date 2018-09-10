@@ -1,0 +1,9 @@
+.main-scroller {
+
+    height: 400px;
+    display: flex;
+    overflow-x: auto;
+    width: 1000px;
+    
+
+}
