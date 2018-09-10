@@ -34,7 +34,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
     background: isDragging ? 'lightgreen' : 'grey',
 
     // styles we need to apply on draggables
-    
+
     ...draggableStyle,
 });
 
@@ -57,7 +57,7 @@ class DnDComponent extends Component {
                     {
                         content: (<RowComponent row={emptyValue} deleteRow={this.deleteRow} part="first" />),
                         deleteBox: (<RowComponent row={emptyValue} deleteRow={this.deleteRow} part="second" />),
-                        id: emptyValue.id-1,
+                        id: emptyValue.id - 1,
                         value: emptyValue
                     }
                 )
@@ -83,18 +83,27 @@ class DnDComponent extends Component {
 
     onDragEnd(result) {
         // dropped outside the list
-        if (!result.destination) {
+        const {destination, source, draggableId} = result;
+
+        if(!destination){
+        return;}
+
+        if(destination.droppableId === source.droppableId &&
+        destination.index === source.index) {
             return;
         }
+       
 
         const items = reorder(
             this.state.items,
-            result.source.index,
-            result.destination.index
+            source.index,
+            destination.index
         );
 
-        console.log("Post drag", items.map(item =>item.value));
-        
+        console.log("Pre drag", this.state.items.map(item => item.value));
+
+        console.log("Post drag", items.map(item => item.value));
+
 
 
         this.setState({
@@ -113,58 +122,58 @@ class DnDComponent extends Component {
 
 
         return [
-            <table  key={2} style={{ maxWidth: "550px" }} >
-                                <thead style={{ width: "100%" }}>
-                                    <tr >
-                                        <th className="column">Serial</th>
-                                        <th className="column">L Woman</th>
-                                        <th className="column">Dutch Club</th>
-                                        <th className="column">Dutch Handle</th>
-                                        <th className="column">Done</th>
-                                    </tr>
-                                </thead>
-                                </table>,
+            <table key={2} style={{ maxWidth: "550px" }} >
+                <thead style={{ width: "100%" }}>
+                    <tr >
+                        <th className="column">Serial</th>
+                        <th className="column">L Woman</th>
+                        <th className="column">Dutch Club</th>
+                        <th className="column">Dutch Handle</th>
+                        <th className="column">Done</th>
+                    </tr>
+                </thead>
+            </table>,
             <DragDropContext key={0} onDragEnd={this.onDragEnd}>
                 <Droppable droppableId="droppable">
                     {(provided, snapshot) => (
-                        <table style={{maxWidth: "550px"}}
+                        <table style={{ maxWidth: "550px" }}
                             ref={provided.innerRef}
                             style={getListStyle(snapshot.isDraggingOver)}
                         >
-                            
-                                
-                                <tbody style={{ width: "100%" }}>
-                                    {this.state.items.map((item, index) => (
-                                        <Draggable key={item.id} draggableId={item.id} index={index}>
-                                            {(provided, snapshot) => (
-                                                <tr
-                                                    ref={provided.innerRef}
-                                                    {...provided.draggableProps}
-                                                    isDragging={snapshot.isDragging}
 
-                                                   style={getItemStyle(
-                                                     snapshot.isDragging,
-                                                     provided.draggableProps.style
-                                                   )}
-                                                >
 
-                                                    {item.content}
-                                                    <td {...provided.dragHandleProps}
-                                                        style={{
+                            <tbody style={{ width: "100%" }}>
+                                {this.state.items.map((item, index) => (
+                                    <Draggable key={item.id} draggableId={item.id} index={index}>
+                                        {(provided, snapshot) => (
+                                            <tr
+                                                ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                isDragging={snapshot.isDragging}
 
-                                                            backgroundColor: "orange",
-                                                            borderRadius: "4px",
-                                                            marginRight: "0"
-                                                        }} className="column">DRAG HERE</td>
-                                                    {item.deleteBox}
-                                                </tr>
-                                            )}
-                                        </Draggable>
-                                    ))
+                                                style={getItemStyle(
+                                                    snapshot.isDragging,
+                                                    provided.draggableProps.style
+                                                )}
+                                            >
 
-                                    }
-                                </tbody>
-                            
+                                                {item.content}
+                                                <td {...provided.dragHandleProps}
+                                                    style={{
+
+                                                        backgroundColor: "orange",
+                                                        borderRadius: "4px",
+                                                        marginRight: "0"
+                                                    }} className="column">DRAG HERE</td>
+                                                {item.deleteBox}
+                                            </tr>
+                                        )}
+                                    </Draggable>
+                                ))
+
+                                }
+                            </tbody>
+
                             {provided.placeholder}
                         </table>
                     )}
