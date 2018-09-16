@@ -10,12 +10,7 @@ export const values = [
     { id: 5, name: "Lita", team: "Feyenoord" }
 ];
 
-const list = [
-    {content: (<div style={{border: "2px solid black", width: "200px"}}>test1</div>)},
-    {content: (<div style={{border: "2px solid black", width: "200px"}}>test2</div>)},
-    {content: (<div style={{border: "2px solid black", width: "200px"}}>test3</div>)},
-    {content: (<div style={{border: "2px solid black", width: "200px"}}>test4</div>)}
-];
+
 
 class DragComponent extends Component {
     onSort = (sortedList, dropEvent) => {

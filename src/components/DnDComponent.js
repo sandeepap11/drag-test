@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { values } from './DragComponent';
 import RowComponent from './RowComponent';
 
 
 
-// fake data generator
-const getItems = count =>
-    Array.from({ length: count }, (v, k) => k).map(k => ({
-        id: `item-${k}`,
-        content: `item ${k}`,
-    }));
+// // fake data generator
+// const getItems = count =>
+//     Array.from({ length: count }, (v, k) => k).map(k => ({
+//         id: `item-${k}`,
+//         content: `item ${k}`,
+//     }));
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -27,7 +26,7 @@ const grid = 8;
 const getItemStyle = (isDragging, draggableStyle) => ({
     // some basic styles to make the items look a bit nicer
     userSelect: 'none',
-    maxWidth: "100%",
+    maxWidth: "550px",
     display: "flex",
 
     // change background colour if dragging
@@ -83,7 +82,7 @@ class DnDComponent extends Component {
 
     onDragEnd(result) {
         // dropped outside the list
-        const {destination, source, draggableId} = result;
+        const {destination, source} = result;
 
         if(!destination){
         return;}
@@ -136,7 +135,7 @@ class DnDComponent extends Component {
             <DragDropContext key={0} onDragEnd={this.onDragEnd}>
                 <Droppable droppableId="droppable">
                     {(provided, snapshot) => (
-                        <table style={{ maxWidth: "550px" }}
+                        <table 
                             ref={provided.innerRef}
                             style={getListStyle(snapshot.isDraggingOver)}
                         >
