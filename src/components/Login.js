@@ -17,6 +17,11 @@ class Login extends Component {
         }
     };
 
+    logOut = () => {
+        document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+        this.setState({ loggedIn: false });
+    };
+
     getCookie = (name) => {
         var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
         if (match) return match[2];
@@ -41,6 +46,7 @@ class Login extends Component {
 
         return (
             (!loggedIn && !cookiesSet) ? <div key={0}>
+
                 <form style={{ display: "flex", flexDirection: "column", width: "500px", margin: "200px" }}
                     onSubmit={(event) => this.validate(event)}>
                     <input style={{ marginBottom: "10px" }} type="text" name="username" />
@@ -49,7 +55,11 @@ class Login extends Component {
                 </form>
             </div>
                 :
-                <DnDComponent key={1} />
+                [
+                    <button key={1} onClick={this.logOut}>Log Out</button>,
+                    <DnDComponent key={2} />
+                ]
+
         );
     }
 }
